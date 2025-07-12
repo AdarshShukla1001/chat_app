@@ -1,0 +1,76 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+dist/
+build/
+tmp/
+temp/
+.cache/
+
+# Test coverage
+coverage/
+
+# Database and OS files
+*.sqlite
+*.sqlite3
+*.db
+.DS_Store
+Thumbs.db
+
+# Optional npm cache directory
+.npm/
+
+# VSCode
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# Test snapshots
+__snapshots__/
+
+# Mac system files
+*.swp
+
+# Output of 'npm pack'
+*.tgz
+
+# ESLint cache
+.eslintcache
+
+# TypeScript
+*.tsbuildinfo
+
+# PM2 logs
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Swagger editor generated files
+swagger.json
+swagger.yaml
+
+# Local environment Docker config
+docker-compose.override.yml
+
+# Coverage from NYC or Jest
+.nyc_output/
+
+# Firebase
+.firebaserc
+.firebase/

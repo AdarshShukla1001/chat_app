@@ -1,0 +1,24 @@
+### Signup - Create a new user
+POST http://localhost:5001/api/auth/signup
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "user@example.com",
+  "password": "password123"
+}
+
+### ⬆️ After running the above request, copy the token from the response and paste it below
+
+### Get Current User (Authenticated)
+GET http://localhost:5001/api/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODcyOGI3ZDJhMmI1MDI5OWFjMDI3YTUiLCJpYXQiOjE3NTIzMzcyNzcsImV4cCI6MTc1Mjk0MjA3N30.lgfeAUCpHENuZLg30sSfzq9n2pjvTYP5UipdAXs-1og
+
+### Update Current User Name (Authenticated)
+PUT http://localhost:5001/api/users/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODcyOGI3ZDJhMmI1MDI5OWFjMDI3YTUiLCJpYXQiOjE3NTIzMzcyNzcsImV4cCI6MTc1Mjk0MjA3N30.lgfeAUCpHENuZLg30sSfzq9n2pjvTYP5UipdAXs-1og
+
+{
+  "name": "Updated Name"
+}
