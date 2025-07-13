@@ -13,7 +13,7 @@ POST http://localhost:5001/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "u1@test.com",
+ "email": "u1@test.com",
   "password": "pass123"
 }
 

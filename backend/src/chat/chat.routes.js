@@ -6,5 +6,7 @@ const { protect } = require('../auth/auth.middleware');
 router.get('/one-to-one/:userId', protect, chatController.getOneToOneMessages);
 router.get('/group/:groupId', protect, chatController.getGroupMessages);
 router.post('/group', protect, chatController.createGroup);
+router.get('/messages', protect, chatController.getPaginatedMessages);
 
 module.exports = router;
+  
