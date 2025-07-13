@@ -2,8 +2,17 @@ const userService = require("./user.service");
 
 exports.getMe = async (req, res) => {
   try {
-    const user = await userService.getCurrentUser(req.user);
-    res.json(user);
+    const user = req.user; // already fetched in auth middleware
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+
+    const formattedUser = {
+      ...user.toObject(), // ensure it's a plain object
+      avatar: user.avatar
+        ? `${baseUrl}/${user.avatar.replace(/\\/g, "/")}`
+        : null,
+    };
+
+    res.json(formattedUser);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
