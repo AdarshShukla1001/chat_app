@@ -1,6 +1,13 @@
 const chatService = require("./chat.service");
+const jwt = require("jsonwebtoken");
+const User = require("../users/user.model");
 
 function registerChatHandlers(io, socket) {
+  if (!socket.user) {
+    console.warn("❌ Rejected unauthenticated socket");
+    socket.disconnect();
+    return;
+  }
   socket.on("join_group", (groupId) => {
     socket.join(groupId);
     console.log(`Socket ${socket.id} joined group ${groupId}`);
@@ -30,7 +37,11 @@ function registerChatHandlers(io, socket) {
   socket.on("group_message", async ({ groupId, content }) => {
     try {
       const fromUserId = socket.user._id; // ✅ Securely use authenticated user
-      const message = await chatService.saveMessage(fromUserId, groupId, content);
+      const message = await chatService.saveMessage(
+        fromUserId,
+        groupId,
+        content
+      );
       io.to(groupId).emit("new_message", message);
     } catch (err) {
       console.error("Error handling group_message:", err.message);

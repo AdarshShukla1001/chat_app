@@ -21,7 +21,6 @@ class SocketService {
   }
 
   static void sendGroupMessage(String groupId, String content) {
-    print('sendGroupMessage');
     socket.emit('group_message', {'groupId': groupId, 'content': content});
   }
 
