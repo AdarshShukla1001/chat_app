@@ -1,4 +1,4 @@
-import 'package:chat_app/service/api_service.dart';
+import 'package:chat_app/archive/service/api_service.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketService {

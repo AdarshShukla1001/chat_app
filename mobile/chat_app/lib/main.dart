@@ -1,6 +1,6 @@
-import 'package:chat_app/screens/chat_screen.dart';
-import 'package:chat_app/service/api_service.dart';
-import 'package:chat_app/service/socket_service.dart';
+import 'package:chat_app/archive/screens/chat_screen.dart';
+import 'package:chat_app/archive/service/api_service.dart';
+import 'package:chat_app/archive/service/socket_service.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
