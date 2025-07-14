@@ -1,5 +1,5 @@
 import 'package:chat_app/archive/screens/home_screen.dart';
-import 'package:chat_app/archive/service/api_service.dart';
+import 'package:chat_app/service/api_service.dart';
 import 'package:flutter/material.dart';
 
 import 'register_screen.dart';

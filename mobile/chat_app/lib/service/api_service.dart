@@ -90,7 +90,7 @@ class ApiService {
   }
 
   static Future<List> getGroups() async {
-    final url = '$_baseUrl/user/groups';
+    final url = '$_baseUrl/chat/groups';
     _logRequest('GET', url, headers: {'Authorization': 'Bearer $_token'});
 
     final res = await http.get(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'});

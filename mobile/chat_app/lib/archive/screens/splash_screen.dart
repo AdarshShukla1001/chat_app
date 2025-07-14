@@ -1,5 +1,5 @@
 // lib/screens/splash_screen.dart
-import 'package:chat_app/archive/service/api_service.dart';
+import 'package:chat_app/service/api_service.dart';
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'home_screen.dart';
