@@ -13,7 +13,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));  
+app.use(express.urlencoded({ extended: true }));
 
 // Log each request to terminal using morgan + winston
 app.use(
@@ -26,7 +26,7 @@ app.use(
         "-",
         tokens["response-time"](req, res),
         "ms",
-      ].join(" "); 
+      ].join(" ");
     },
     {
       stream: {
@@ -35,10 +35,10 @@ app.use(
     }
   )
 );
-
+app.use("/api/chat", chatRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/chat", chatRoutes);
-app.use('/uploads', express.static('uploads'));
+
+app.use("/uploads", express.static("uploads"));
 
 module.exports = app;

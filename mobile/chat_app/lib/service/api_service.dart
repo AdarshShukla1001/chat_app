@@ -8,7 +8,7 @@ class ApiService {
   factory ApiService() => _instance;
   ApiService._internal();
 
-  static const String _baseUrl = 'http://192.168.1.7:5001/api';
+  static const String _baseUrl = 'http://192.168.1.17:5001/api';
   static String? _token;
 
   String? getToken() {
@@ -129,5 +129,37 @@ class ApiService {
 
     _logResponse(res);
     return jsonDecode(res.body)['messages'];
+  }
+
+  static Future<List> getAllGroups() async {
+    final url = '$_baseUrl/chat/groups';
+    _logRequest('GET', url, headers: {'Authorization': 'Bearer $_token'});
+
+    final res = await http.get(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'});
+
+    _logResponse(res);
+    return jsonDecode(res.body);
+  }
+
+  static Future<http.Response> sendMessage(String groupId, String content, {String? parentMessage}) async {
+    final url = '$_baseUrl/chat/message';
+    final body = {'groupId': groupId, 'content': content, if (parentMessage != null) 'parentMessage': parentMessage};
+
+    _logRequest('POST', url, headers: {'Authorization': 'Bearer $_token'}, body: body);
+
+    final res = await http.post(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'}, body: body);
+    _logResponse(res);
+    return res;
+  }
+
+  static Future<http.Response> reactToMessage(String messageId, String emoji) async {
+    final url = '$_baseUrl/chat/message/$messageId/reaction';
+    final body = {'emoji': emoji};
+
+    _logRequest('POST', url, headers: {'Authorization': 'Bearer $_token'}, body: body);
+
+    final res = await http.post(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'}, body: body);
+    _logResponse(res);
+    return res;
   }
 }
