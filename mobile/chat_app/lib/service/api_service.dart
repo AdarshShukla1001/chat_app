@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:chat_app/models/message_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -100,7 +101,7 @@ class ApiService {
   }
 
   static Future<http.Response> createGroup(String name, List<String> participants) async {
-    final url = '$_baseUrl/chat/group';
+    final url = '$_baseUrl/chat/groups';
     final body = jsonEncode({'name': name, 'participants': participants});
 
     _logRequest('POST', url, headers: {'Authorization': 'Bearer $_token', 'Content-Type': 'application/json'}, body: body);
@@ -111,24 +112,18 @@ class ApiService {
     return res;
   }
 
-  static Future<List> getMessages(String groupId) async {
-    final url = '$_baseUrl/chat/group/$groupId';
+  // in ApiService class
+  static Future<List<MessageModel>> getMessages(String groupId) async {
+    final url = '$_baseUrl/chat/messages?groupId=$groupId';
     _logRequest('GET', url, headers: {'Authorization': 'Bearer $_token'});
 
     final res = await http.get(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'});
-
     _logResponse(res);
-    return jsonDecode(res.body);
-  }
 
-  static Future<List> getOneToOneMessages(String userId) async {
-    final url = '$_baseUrl/chat/one-to-one/$userId';
-    _logRequest('GET', url, headers: {'Authorization': 'Bearer $_token'});
+    final decoded = jsonDecode(res.body);
+    final messagesJson = decoded['messages'] as List;
 
-    final res = await http.get(Uri.parse(url), headers: {'Authorization': 'Bearer $_token'});
-
-    _logResponse(res);
-    return jsonDecode(res.body)['messages'];
+    return messagesJson.map((m) => MessageModel.fromJson(m)).toList();
   }
 
   static Future<List> getAllGroups() async {

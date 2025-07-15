@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.login, page: () => LoginPage()),
         GetPage(name: AppRoutes.register, page: () => RegisterPage()),
         GetPage(name: AppRoutes.inbox, page: () => InboxPage()),
-        GetPage(name: AppRoutes.createGroup, page: () => CreateGroupPage()),
+        GetPage(name: AppRoutes.createGroup, page: () => CreateGroupPage()), 
         GetPage(name: AppRoutes.chat, page: () => ChatPage()),
       ],
     );

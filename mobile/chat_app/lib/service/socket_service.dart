@@ -29,21 +29,10 @@ class SocketService {
   }
 
   static void sendGroupMessage(String groupId, String content, {String? parentMessage}) {
-    final payload = {'groupId': groupId, 'content': content, if (parentMessage != null) 'parentMessage': parentMessage};
-    print('➡️ Sending group message: $payload');
-    socket.emit('group_message', payload);
-  }
-
-  static void sendOneToOneMessage(String toUserId, String content, {String? parentMessage}) {
-    final payload = {'toUserId': toUserId, 'content': content, if (parentMessage != null) 'parentMessage': parentMessage};
-    print('➡️ Sending one-to-one message: $payload');
-    socket.emit('one_to_one_message', payload);
-  }
-
-  static void reactToMessage(String messageId, String emoji) {
-    final payload = {'messageId': messageId, 'emoji': emoji};
-    print('❤️ Reacting to message: $payload');
-    socket.emit('react_to_message', payload);
+    final payload = {'groupId': groupId, 'content': content};
+    if (parentMessage != null) payload['parentMessage'] = parentMessage;
+    print('➡️ Emitting: $payload');
+    socket.emit('send_message', payload);
   }
 
   static void onNewMessage(Function(dynamic) handler) {
@@ -54,10 +43,14 @@ class SocketService {
     });
   }
 
+  static void reactToMessage(String messageId, String emoji) {
+    socket.emit('react_to_message', {'messageId': messageId, 'emoji': emoji});
+  }
+
   static void onMessageReacted(Function(dynamic) handler) {
     print('📥 Listening for message_reacted event');
     socket.on('message_reacted', (data) {
-      print('💬 Message reacted: $data');
+      print('❤️ Reaction received: $data');
       handler(data);
     });
   }

@@ -12,7 +12,7 @@ console.log("createGroup type:", typeof groupController.createGroup); // should 
 console.log("groupController:", groupController);
 // Message routes
 router.post("/messages", protect, messageController.sendMessage);
-router.get("/messages", protect, messageController.getMessages);
+router.get("/messages/", protect, messageController.getMessages);
 router.post(
   "/messages/:messageId/reaction",
   protect,

@@ -21,22 +21,52 @@ class CreateGroupPage extends StatelessWidget {
             TextField(
               controller: nameController,
               decoration: InputDecoration(labelText: "Group Name"),
+              onChanged: (val) => controller.name.value = val,
             ),
-            Obx(() => Column(children: controller.participants.map((e) => ListTile(title: Text(e))).toList())),
-            TextField(
-              controller: participantController,
-              decoration: InputDecoration(labelText: "Add participant ID"),
+            const SizedBox(height: 10),
+            Obx(
+              () => Column(
+                children: controller.participants
+                    .map(
+                      (id) => ListTile(
+                        title: Text(id),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () => controller.participants.remove(id),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: participantController,
+                    decoration: InputDecoration(labelText: "Participant User ID"),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    final id = participantController.text.trim();
+                    if (id.isNotEmpty && !controller.participants.contains(id)) {
+                      controller.participants.add(id);
+                      participantController.clear();
+                    }
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 controller.name.value = nameController.text;
-                controller.participants.add(participantController.text);
-                participantController.clear();
+                controller.createGroup();
               },
-              child: Text("Add Participant"),
+              child: Text("Create Group"),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(onPressed: controller.createGroup, child: Text("Create Group")),
           ],
         ),
       ),

@@ -18,8 +18,14 @@ async function findOrCreateOneToOneGroup(userA, userB) {
   return group;
 }
 
-async function createGroup(name, participants) {
-  return await Group.create({ isGroup: true, name, participants });
+async function createGroup(name, participants, createdBy, isGroup = true) {
+  return await Group.create({
+    isGroup,
+    name,
+    participants,
+    createdBy, // ✅ Assign the creator
+    admins: [createdBy], // Optional: add creator as admin
+  });
 }
 
 async function saveMessage(sender, groupId, content) {
@@ -37,7 +43,7 @@ async function getMessagesByGroup(groupId) {
 async function isParticipant(groupId, userId) {
   const group = await Group.findOne({ _id: groupId, participants: userId });
   return !!group;
-} 
+}
 module.exports = {
   findOrCreateOneToOneGroup,
   createGroup,

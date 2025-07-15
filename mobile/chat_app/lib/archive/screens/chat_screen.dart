@@ -3,7 +3,7 @@ import 'package:chat_app/service/socket_service.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
-  //  const ChatScreen({super.key, required this.groupId});
+  const ChatScreen({super.key});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
