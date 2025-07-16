@@ -54,4 +54,38 @@ class SocketService {
       handler(data);
     });
   }
+
+  // --------------------- WebRTC Calls ---------------------
+
+  static void sendCallOffer(String toUserId, Map<String, dynamic> offer) {
+    socket.emit('call:offer', {'toUserId': toUserId, 'offer': offer});
+  }
+
+  static void sendCallAnswer(String toUserId, Map<String, dynamic> answer) {
+    socket.emit('call:answer', {'toUserId': toUserId, 'answer': answer});
+  }
+
+  static void sendIceCandidate(String toUserId, Map<String, dynamic> candidate) {
+    socket.emit('call:ice-candidate', {'toUserId': toUserId, 'candidate': candidate});
+  }
+
+  static void sendCallEnd(String toUserId) {
+    socket.emit('call:end', {'toUserId': toUserId});
+  }
+
+  static void onCallOffer(Function(String fromUserId, Map<String, dynamic> offer) handler) {
+    socket.on('call:offer', (data) => handler(data['fromUserId'], data['offer']));
+  }
+
+  static void onCallAnswer(Function(Map<String, dynamic> answer) handler) {
+    socket.on('call:answer', (data) => handler(data['answer']));
+  }
+
+  static void onIceCandidate(Function(Map<String, dynamic> candidate) handler) {
+    socket.on('call:ice-candidate', (data) => handler(data['candidate']));
+  }
+
+  static void onCallEnd(Function(String fromUserId) handler) {
+    socket.on('call:end', (data) => handler(data['fromUserId']));
+  }
 }

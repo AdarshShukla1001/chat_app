@@ -4,4 +4,6 @@ abstract class AppRoutes {
   static const inbox = '/inbox';
   static const createGroup = '/create-group';
   static const chat = '/chat';
+    static const call = '/call';
+
 }
